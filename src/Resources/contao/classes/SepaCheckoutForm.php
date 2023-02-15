@@ -75,6 +75,11 @@ class SepaCheckoutForm extends Frontend
 		$this->Template->method = 'post';
 		$this->Template->enctype = 'application/x-www-form-urlencoded';
 
+        $tokenName = System::getContainer()->getParameter('contao.csrf_token_name');
+        $tokenManager = System::getContainer()->has('contao.csrf.token_manager') ? System::getContainer()->get('contao.csrf.token_manager') : System::getContainer()->get('security.csrf.token_manager');
+
+		$this->Template->requestToken = $tokenManager->getToken($tokenName)->getValue();
+
 		$this->Template->formId = $this->strFormId;
 		$this->Template->formSubmit = $this->strFormId;
 		$this->Template->tableless = $this->blnTableless;
