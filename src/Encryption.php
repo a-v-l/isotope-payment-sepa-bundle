@@ -8,7 +8,7 @@ class Encryption
 {
     const KEY = 'KJDgFBeGZHlqA0wvdFjZomVitSPDbEwZ';
 
-    public function encrypt(string $data): string
+    public static function encrypt(string $data): string
     {
         $nonce = random_bytes(SODIUM_CRYPTO_AEAD_CHACHA20POLY1305_IETF_NPUBBYTES);
         $cipherText = sodium_crypto_aead_chacha20poly1305_ietf_encrypt(
@@ -21,7 +21,7 @@ class Encryption
         return $nonce . $cipherText;
     }
 
-    public function decrypt(string $data): string
+    public static function decrypt(string $data): string
     {
         $nonce = mb_substr($data, 0, SODIUM_CRYPTO_AEAD_CHACHA20POLY1305_IETF_NPUBBYTES, '8bit');
         $payload = mb_substr($data, SODIUM_CRYPTO_AEAD_CHACHA20POLY1305_IETF_NPUBBYTES, null, '8bit');

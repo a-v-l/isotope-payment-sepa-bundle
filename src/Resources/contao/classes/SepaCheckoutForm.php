@@ -241,7 +241,7 @@ class SepaCheckoutForm extends Frontend
 		}
 
 		/** @var Widget $objWidget */
-		$objWidget = new $strClass($arrField['eval']);
+		$objWidget = new $strClass(@$arrField['eval']);
 		$objWidget->id = $strName;
 		$objWidget->name = $strName;
 		$objWidget->tableless = (bool)$this->blnTableless;

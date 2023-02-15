@@ -10,6 +10,7 @@
 namespace Gruschit\Contao\Isotope\Payment\Sepa;
 
 use Contao\Input;
+use Contao\Module;
 use Isotope\Interfaces\IsotopePayment;
 use Isotope\Interfaces\IsotopeProductCollection;
 use Isotope\Model\Payment;
@@ -32,10 +33,10 @@ class SepaPayment extends Payment implements IsotopePayment
 	 * Process payment on checkout confirmation page.
 	 *
 	 * @param   IsotopeProductCollection $objOrder The order being placed
-	 * @param   \Module $objModule The checkout module instance
+	 * @param   Module $objModule The checkout module instance
 	 * @return  bool
 	 */
-	public function processPayment(IsotopeProductCollection $objOrder, \Module $objModule)
+	public function processPayment(IsotopeProductCollection $objOrder, Module $objModule)
 	{
 		if ( ! $objOrder instanceof Order)
 		{
@@ -63,10 +64,10 @@ class SepaPayment extends Payment implements IsotopePayment
 	 * Return a html form for checkout
 	 *
 	 * @param IsotopeProductCollection $objOrder The order being placed
-	 * @param \Module $objModule The checkout module instance
+	 * @param Module $objModule The checkout module instance
 	 * @return bool|string
 	 */
-	public function checkoutForm(IsotopeProductCollection $objOrder, \Module $objModule)
+	public function checkoutForm(IsotopeProductCollection $objOrder, Module $objModule)
 	{
 		$objForm = new SepaCheckoutForm($objModule->tableless);
 
@@ -96,6 +97,7 @@ class SepaPayment extends Payment implements IsotopePayment
 
 		$objPaymentBag = SepaPaymentBag::load($objOrder->payment_data);
 		$objInterface = new SepaBackendInterface($objPaymentBag, $objOrder->getPaymentMethod());
+		\Symfony\Component\VarDumper\VarDumper::dump([$orderId, $objOrder, $objPaymentBag, $objInterface]);
 
 		return $objInterface->generate();
 	}
