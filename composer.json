@@ -1,5 +1,5 @@
 {
-    "name" : "albirs/isotope-payment-sepa-bundle",
+    "name" : "a-v-l/isotope-payment-sepa-bundle",
     "description" : "SEPA payment module for contao isotope extension.",
     "keywords": ["contao", "bundle", "isotope"],
     "type" : "contao-bundle",
@@ -11,13 +11,13 @@
         }
     ],
     "require" : {
-        "php": "^7.2 || ^8.0",
+        "php": "^7.4 || ^8.0",
         "ext-bcmath": "*",
-        "contao/core-bundle" : "^4.9",
-        "isotope/isotope-core": "^2.7.0"
+        "contao/core-bundle" : "^4.13",
+        "isotope/isotope-core": "^2.8"
     },
     "require-dev" : {
-        "contao/manager-plugin" : "^2.0"
+        "contao/manager-plugin" : "^2.3.1"
     },
     "autoload" : {
         "psr-4" : {

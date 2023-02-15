@@ -97,7 +97,6 @@ class SepaPayment extends Payment implements IsotopePayment
 
 		$objPaymentBag = SepaPaymentBag::load($objOrder->payment_data);
 		$objInterface = new SepaBackendInterface($objPaymentBag, $objOrder->getPaymentMethod());
-		\Symfony\Component\VarDumper\VarDumper::dump([$orderId, $objOrder, $objPaymentBag, $objInterface]);
 
 		return $objInterface->generate();
 	}
