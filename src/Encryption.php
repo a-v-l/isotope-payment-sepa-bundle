@@ -10,12 +10,14 @@ class Encryption
 
     public static function encrypt(string $data): string
     {
+        $container = \Contao\System::getContainer();
+        $key = $container->hasParameter('sepa_encryption_key') ? $container->getParameter('sepa_encryption_key') : self::KEY;
         $nonce = random_bytes(SODIUM_CRYPTO_AEAD_CHACHA20POLY1305_IETF_NPUBBYTES);
         $cipherText = sodium_crypto_aead_chacha20poly1305_ietf_encrypt(
             (string) $data,
             $nonce,
             $nonce,
-            self::KEY
+            $key
         );
 
         return $nonce . $cipherText;
@@ -23,6 +25,8 @@ class Encryption
 
     public static function decrypt(string $data): string
     {
+        $container = \Contao\System::getContainer();
+        $key = $container->hasParameter('sepa_encryption_key') ? $container->getParameter('sepa_encryption_key') : self::KEY;
         $nonce = mb_substr($data, 0, SODIUM_CRYPTO_AEAD_CHACHA20POLY1305_IETF_NPUBBYTES, '8bit');
         $payload = mb_substr($data, SODIUM_CRYPTO_AEAD_CHACHA20POLY1305_IETF_NPUBBYTES, null, '8bit');
 
@@ -31,7 +35,7 @@ class Encryption
                 $payload,
                 $nonce,
                 $nonce,
-                self::KEY
+                $key
             );
         } catch (\SodiumException $e) {
             $plainText = '';
